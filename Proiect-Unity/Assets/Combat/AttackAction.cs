@@ -13,7 +13,8 @@ public class AttackAction : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        attacks.Add(new Attack(10, 100, 0, 1));
+        attacks.Add(new Attack(10, 10, 0, 10)); //damage, range, cooldown, knockback
+                                                //cooldown won't make the cut in the actual form
         isFacingRight = true;
     }
 
