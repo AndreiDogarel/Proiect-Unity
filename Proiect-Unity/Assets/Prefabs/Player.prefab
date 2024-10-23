@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6908703733779078217}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,9 @@ GameObject:
   - component: {fileID: 6963444264892838617}
   - component: {fileID: 1441946555109200764}
   - component: {fileID: 8234783357961865918}
-  m_Layer: 0
+  - component: {fileID: 1392155179970004832}
+  - component: {fileID: -6221506275038129473}
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -215,3 +217,32 @@ MonoBehaviour:
   baseGravity: 2
   maxFallSpeed: 10
   fallSpeedMultiplier: 2
+--- !u!114 &1392155179970004832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7241440797586071168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6527bd33111fced4da5a79ced426072c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  position: {x: 0, y: 0}
+  direction: {x: 0, y: 0}
+  attacks: []
+--- !u!114 &-6221506275038129473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7241440797586071168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bc57cd072df8c64995667d72b86efbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthProcent: 0
+  rb: {fileID: 0}
