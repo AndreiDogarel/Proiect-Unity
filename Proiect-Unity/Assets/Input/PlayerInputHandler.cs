@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -14,8 +15,9 @@ public class PlayerInputHandler : MonoBehaviour
     {
         if (player != null) 
         {
-            controller = GameObject.Instantiate(player, startPos, transform.rotation).GetComponent<PlayerMovement>();
+            controller = GameObject.Instantiate(player, GameManager.instance.spawnPoints[0].transform.position, transform.rotation).GetComponent<PlayerMovement>();
             transform.parent = controller.transform;
+            transform.position = controller.transform.position;
         }
     }
 
