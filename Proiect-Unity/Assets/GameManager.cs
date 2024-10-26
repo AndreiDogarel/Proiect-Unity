@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,6 +17,9 @@ public class GameManager : MonoBehaviour
     public event System.Action<PlayerInput> PlayerJoined;
     public event System.Action<PlayerInput> PlayerLeft;
 
+    //For every player keeps track if they are alive
+    public Dictionary<int, bool> lifeSupportForPlayers = new Dictionary<int, bool>();
+
     private void Awake()
     {
         if (instance == null) 
@@ -30,6 +34,7 @@ public class GameManager : MonoBehaviour
 
         joinAction.Enable();
         joinAction.performed += context => JoinAction(context);
+        Debug.Log("Test");
 
         leaveAction.Enable();
         leaveAction.performed += context => LeaveAction(context);
@@ -43,11 +48,21 @@ public class GameManager : MonoBehaviour
 
     void OnPlayerJoined(PlayerInput playerInput)
     {
-        playerList.Add(playerInput);
-
-        if (PlayerJoined != null)
+        if (!lifeSupportForPlayers.ContainsKey(playerInput.playerIndex))
         {
-            PlayerJoined(playerInput);
+            playerList.Add(playerInput);
+            lifeSupportForPlayers.Add(playerInput.playerIndex, true);
+
+            if (PlayerJoined != null)
+            {
+                PlayerJoined(playerInput);
+            }
+            Debug.Log("Playerul a intra! NOU " + playerInput);
+            /*Debug.Log(lifeSupportForPlayers.Count);
+            Debug.Log(playerInput.name);
+            Debug.Log(playerInput.playerIndex);
+            Debug.Log(playerInput.tag);
+            Debug.Log(playerInput.user);*/
         }
     }
 
@@ -89,5 +104,18 @@ public class GameManager : MonoBehaviour
         }
 
         Destroy(playerInput.transform.parent.gameObject);
+    }
+
+    public void KillPlayer(PlayerInput playerInput)
+    {
+        if(playerInput != null)
+        {
+            if (lifeSupportForPlayers.ContainsKey(playerInput.playerIndex))
+            {
+                Debug.Log("Am sters playerul: " + playerInput.playerIndex);
+                lifeSupportForPlayers[playerInput.playerIndex] = false;
+                UnregisterPlayer(playerInput);
+            }
+        }
     }
 }
