@@ -6,15 +6,18 @@ using UnityEngine.InputSystem;
 public class PlayerStats : MonoBehaviour
 {
     public float healthProcent;
-    public int livesLeft;  
+    public int livesLeft;
+
+    public bool ableToMove;
 
     public Rigidbody2D rb;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        //healthProcent = 0f;
-        livesLeft = 1;
+        healthProcent = 0f;
+        livesLeft = 3;
+        ableToMove = true;
     }
 
     public void TakeDamage(float attackDamage, float attackKnockback, Vector2 attackDirection)
@@ -48,11 +51,8 @@ public class PlayerStats : MonoBehaviour
 
     void EliminatePlayer()
     {
-        Debug.Log(GameManager.instance.playerList.Find(x => x.GetComponent<PlayerInputHandler>().player == rb.gameObject));
-        GameManager.instance.KillPlayer(GameManager.instance.playerList.Find(x => x.GetComponent<PlayerInputHandler>().player.Equals(rb.gameObject)));
-        rb.gameObject.SetActive(false);
-        //Respawn();
-        return;
+        ableToMove = false;
+        rb.MovePosition(new Vector2(49.54f, -6.22f));
     }
 
     void Respawn()
