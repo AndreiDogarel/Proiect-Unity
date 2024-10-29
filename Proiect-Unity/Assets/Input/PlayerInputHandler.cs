@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class PlayerInputHandler : MonoBehaviour
 {
     public GameObject player;
-    private PlayerMovement controller;
+    public PlayerMovement controller;
 
     Vector3 startPos = new Vector3(0, 0, 0);
 
