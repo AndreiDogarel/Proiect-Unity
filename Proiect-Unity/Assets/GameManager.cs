@@ -39,7 +39,6 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        PlayerInputManager.instance.JoinPlayer(0, -1, null);
     }
 
     void OnPlayerJoined(PlayerInput playerInput)
