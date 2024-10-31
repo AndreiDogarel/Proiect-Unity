@@ -54,31 +54,24 @@ public class PlayerMovement : MonoBehaviour
 
     public void Move(InputAction.CallbackContext context)
     {
-        if(rb.gameObject.GetComponent<PlayerStats>().ableToMove == true)
-        {
-            horizontalMovement = context.ReadValue<Vector2>().x;
-        }
+        horizontalMovement = context.ReadValue<Vector2>().x;
     }
 
     public void Jump(InputAction.CallbackContext context)
     {
-        if (rb.gameObject.GetComponent<PlayerStats>().ableToMove == true)
+        if (jumpsRemaining > 0)
         {
-            if (jumpsRemaining > 0)
+            if (context.performed)
             {
-                if (context.performed)
-                {
-                    rb.velocity = new Vector2(rb.velocity.x, jumpPower);
-                    jumpsRemaining--;
-                }
-                else if (context.canceled)
-                {
-                    rb.velocity = new Vector2(rb.velocity.x, 0.5f * rb.velocity.y);
-                    jumpsRemaining--;
-                }
+                rb.velocity = new Vector2(rb.velocity.x, jumpPower);
+                jumpsRemaining--;
+            }
+            else if (context.canceled)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, 0.5f * rb.velocity.y);
+                jumpsRemaining--;
             }
         }
-            
     }
 
     private void GroundCheck()
