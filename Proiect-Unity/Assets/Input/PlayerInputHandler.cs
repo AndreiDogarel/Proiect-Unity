@@ -18,6 +18,7 @@ public class PlayerInputHandler : MonoBehaviour
             controller = GameObject.Instantiate(player, GameManager.instance.spawnPoints[0].transform.position, transform.rotation).GetComponent<PlayerMovement>();
             transform.parent = controller.transform;
             transform.position = controller.transform.position;
+           
         }
     }
 
