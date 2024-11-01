@@ -30,4 +30,14 @@ public class PlayerInputHandler : MonoBehaviour
     {
         controller.Jump(context);
     }
+
+    public void Dash(InputAction.CallbackContext context)
+    {
+        controller.Dash(context);
+    }
+
+    public void Attack(InputAction.CallbackContext context)
+    {
+        controller.Attack(context);
+    }
 }
