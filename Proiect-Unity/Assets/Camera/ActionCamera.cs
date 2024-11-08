@@ -10,11 +10,11 @@ public class ActionCamera : MonoBehaviour
     public List<Transform> targets;
 
     public Vector3 offset;
-    public float smoothTime = .5f;
+    public float smoothTime = .3f;
 
-    public float maxZoom = 40f;
-    public float minZoom = 10f;
-    public float zoomLimiter = 50f;
+    public float maxZoom = 8f;
+    public float minZoom = 12f;
+    public float zoomLimiter = 30f;
 
     private Vector3 velocity;
     private Camera cam;
@@ -38,8 +38,8 @@ public class ActionCamera : MonoBehaviour
         float newZoom = Mathf.Lerp(minZoom, maxZoom, GetGreatestDistance() / zoomLimiter);
         cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, newZoom, Time.deltaTime);
 
-        float newZoom2 = Mathf.Lerp(minZoom, maxZoom, GetGreatestDistance2() / zoomLimiter);
-        cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, newZoom2, Time.deltaTime);
+        /*float newZoom2 = Mathf.Lerp(minZoom, maxZoom, GetGreatestDistance2() / zoomLimiter);
+        cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, newZoom2, Time.deltaTime);*/
 
     }
 
