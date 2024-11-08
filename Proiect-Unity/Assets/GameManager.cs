@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -38,7 +39,6 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        PlayerInputManager.instance.JoinPlayer(0, -1, null);
     }
 
     void OnPlayerJoined(PlayerInput playerInput)

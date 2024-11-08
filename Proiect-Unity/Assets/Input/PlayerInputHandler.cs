@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class PlayerInputHandler : MonoBehaviour
 {
     public GameObject player;
-    private PlayerMovement controller;
+    public PlayerMovement controller;
 
     Vector3 startPos = new Vector3(0, 0, 0);
 
@@ -29,5 +29,15 @@ public class PlayerInputHandler : MonoBehaviour
     public void Jump(InputAction.CallbackContext context)
     {
         controller.Jump(context);
+    }
+
+    public void Dash(InputAction.CallbackContext context)
+    {
+        controller.Dash(context);
+    }
+
+    public void Attack(InputAction.CallbackContext context)
+    {
+        controller.Attack(context);
     }
 }
