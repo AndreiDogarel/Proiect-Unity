@@ -17,6 +17,9 @@ public class GameManager : MonoBehaviour
     public event System.Action<PlayerInput> PlayerJoined;
     public event System.Action<PlayerInput> PlayerLeft;
 
+    // Reference to the ActionCamera script
+    private ActionCamera actionCamera;
+
     private void Awake()
     {
         if (instance == null) 
@@ -35,6 +38,11 @@ public class GameManager : MonoBehaviour
         leaveAction.Enable();
         leaveAction.performed += context => LeaveAction(context);
 
+        // reference to camera
+        actionCamera = Camera.main.GetComponent<ActionCamera>();
+
+
+
     }
 
     private void Start()
@@ -49,10 +57,14 @@ public class GameManager : MonoBehaviour
         {
             PlayerJoined(playerInput);
         }
+        // Add player to camera players
+        actionCamera.AddPlayer(playerInput);
     }
 
     void OnPlayerLeft(PlayerInput playerInput) 
-    { 
+    {
+        // Remove player from camera players
+        actionCamera.RemovePlayer(playerInput);
 
     }
 
