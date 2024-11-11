@@ -34,13 +34,14 @@ public class PlayerStats : MonoBehaviour
 
     public void OutOfBorder()
     {
-        if(livesLeft == 0)
+        livesLeft--;
+
+        if (livesLeft == 0)
         {
             EliminatePlayer();
         }
         else
         {
-            livesLeft--;
             healthProcent = 0;
 
             //Calls Respawn method after 2 seconds
