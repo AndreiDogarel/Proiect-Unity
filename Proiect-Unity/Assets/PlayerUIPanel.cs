@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 public class PlayerUIPanel : MonoBehaviour
 {
-    public Text playerLives;
-    public Text playerHealth;
+    public GameObject[] hearts;
 
     PlayerMovement player;
     PlayerStats playerStats;
+    private int previousLivesLeft;
 
     public void AssignPlayer(int index)
     {
@@ -26,8 +26,31 @@ public class PlayerUIPanel : MonoBehaviour
 
     }
 
+    void Update()
+    {
+        if (playerStats != null && previousLivesLeft != playerStats.livesLeft)
+        {
+            previousLivesLeft = playerStats.livesLeft;
+            SetUpInfoPanel();
+        }
+    }
+
     void SetUpInfoPanel()
     {
-        playerHealth.text = playerStats.healthProcent.ToString("F2");
+        if (playerStats.livesLeft == 2)
+        {
+            hearts[5].SetActive(true);
+            hearts[4].SetActive(false);
+        }        
+        if (playerStats.livesLeft == 1)
+        {
+            hearts[3].SetActive(true);
+            hearts[2].SetActive(false);
+        }        
+        if (playerStats.livesLeft == 0)
+        {
+            hearts[1].SetActive(true);
+            hearts[0].SetActive(false);
+        }
     }
 }
