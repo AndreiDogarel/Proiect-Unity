@@ -9,12 +9,20 @@ public class ActionCamera : MonoBehaviour
 {
     public List<Transform> targets;
 
+    [Header("Offset")]
     public Vector3 offset = new Vector3(1.23f, 3.08f, -0.5f);
     public float smoothTime = .5f;
 
+    [Header("Zoom")]
     public float maxZoom = 40f;
     public float minZoom = 10f;
     public float zoomLimiter = 50f;
+
+    [Header("Limits")]
+    public float minX = -27f;
+    public float minY = -6f;
+    public float maxX = 28f;
+    public float maxY = 9f;
 
     private Vector3 velocity;
     private Camera cam;
@@ -38,8 +46,8 @@ public class ActionCamera : MonoBehaviour
         float newZoom = Mathf.Lerp(minZoom, maxZoom, GetGreatestDistance() / zoomLimiter);
         cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, newZoom, Time.deltaTime);
 
-        float newZoom2 = Mathf.Lerp(minZoom, maxZoom, GetGreatestDistance2() / zoomLimiter);
-        cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, newZoom2, Time.deltaTime);
+        //float newZoom2 = Mathf.Lerp(minZoom, maxZoom, GetGreatestDistance2() / zoomLimiter);
+        //cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, newZoom2, Time.deltaTime);
 
     }
 
@@ -48,6 +56,9 @@ public class ActionCamera : MonoBehaviour
         Vector3 centerPoint = GetCenterPoint();
 
         Vector3 newPosition = centerPoint + offset;
+
+        newPosition.x = Mathf.Clamp(newPosition.x, minX, maxX);
+        newPosition.y = Mathf.Clamp(newPosition.y, minY, maxY);
 
         transform.position = Vector3.SmoothDamp(transform.position, newPosition, ref velocity, smoothTime);
     }
