@@ -11,6 +11,7 @@ Proiectul este un joc 2D Platform Fighter co-op, în care până la 4 jucători 
 - Unity 2022.3.50f1
 
 ## Feedback
+- Se testează branch-ul main, cu versiunea 2022.3.50f1 sau mai nouă
 - Prin email, la adresa eusebiuciprian.hutanu03@gmail.com
 
 ## Instructiuni pentru review
