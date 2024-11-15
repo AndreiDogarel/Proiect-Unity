@@ -2,14 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayerUIPanel : MonoBehaviour
 {
     public GameObject[] hearts;
+    public TextMeshProUGUI healthProcent;
 
     PlayerMovement player;
     PlayerStats playerStats;
     private int previousLivesLeft;
+    private float previousHealthProcent;
 
     public void AssignPlayer(int index)
     {
@@ -23,34 +26,38 @@ public class PlayerUIPanel : MonoBehaviour
         playerStats = player.GetComponent<PlayerStats>();
 
         SetUpInfoPanel();
-
     }
 
     void Update()
     {
-        if (playerStats != null && previousLivesLeft != playerStats.livesLeft)
+        if (playerStats != null && (previousLivesLeft != playerStats.livesLeft || previousHealthProcent != playerStats.healthProcent))
         {
             previousLivesLeft = playerStats.livesLeft;
+            previousHealthProcent = playerStats.healthProcent;
             SetUpInfoPanel();
         }
     }
 
     void SetUpInfoPanel()
     {
-        if (playerStats.livesLeft == 2)
+        healthProcent.enableVertexGradient = true;
+
+        switch (playerStats.livesLeft)
         {
-            hearts[5].SetActive(true);
-            hearts[4].SetActive(false);
-        }        
-        if (playerStats.livesLeft == 1)
-        {
-            hearts[3].SetActive(true);
-            hearts[2].SetActive(false);
-        }        
-        if (playerStats.livesLeft == 0)
-        {
-            hearts[1].SetActive(true);
-            hearts[0].SetActive(false);
+            case 2:
+                hearts[5].SetActive(true);
+                hearts[4].SetActive(false);
+                break;
+            case 1:
+                hearts[3].SetActive(true);
+                hearts[2].SetActive(false);
+                break;
+            case 0:
+                hearts[1].SetActive(true);
+                hearts[0].SetActive(false);
+                break;
         }
+
+        healthProcent.text = $"WEAKNESS: {previousHealthProcent}%";
     }
 }
