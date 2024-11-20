@@ -17,6 +17,18 @@ public class GameManager : MonoBehaviour
     public event System.Action<PlayerInput> PlayerJoined;
     public event System.Action<PlayerInput> PlayerLeft;
 
+    private int maxPlayerCount;
+    private int currentPlayerCount = 0;
+
+    // Reference to the ActionCamera script
+    private ActionCamera actionCamera;
+
+    private void Start()
+    {
+        maxPlayerCount = PlayerPrefs.GetInt("PlayerCount", 4);
+        Debug.Log(maxPlayerCount);
+    }
+
     private void Awake()
     {
         if (instance == null) 
@@ -35,10 +47,9 @@ public class GameManager : MonoBehaviour
         leaveAction.Enable();
         leaveAction.performed += context => LeaveAction(context);
 
-    }
+        // reference to camera
+        actionCamera = Camera.main.GetComponent<ActionCamera>();
 
-    private void Start()
-    {
     }
 
     void OnPlayerJoined(PlayerInput playerInput)
@@ -49,16 +60,24 @@ public class GameManager : MonoBehaviour
         {
             PlayerJoined(playerInput);
         }
+        // Add player to camera players
+        actionCamera.AddPlayer(playerInput);
     }
 
     void OnPlayerLeft(PlayerInput playerInput) 
-    { 
+    {
+        // Remove player from camera players
+        actionCamera.RemovePlayer(playerInput);
 
     }
 
     void JoinAction(InputAction.CallbackContext context)
     {
-        PlayerInputManager.instance.JoinPlayerFromActionIfNotAlreadyJoined(context);
+        currentPlayerCount++;
+        if (currentPlayerCount <= maxPlayerCount)
+        {
+            PlayerInputManager.instance.JoinPlayerFromActionIfNotAlreadyJoined(context);
+        }
     }
 
     void LeaveAction(InputAction.CallbackContext context)
@@ -72,6 +91,7 @@ public class GameManager : MonoBehaviour
                     if (device != null && context.control.device == device)
                     {
                         UnregisterPlayer(player);
+                        currentPlayerCount--;
                         return;
                     }
                 }
