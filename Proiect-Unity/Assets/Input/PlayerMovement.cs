@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody2D rb;
     bool isFacingRight = true;
     List<Attack> attacks = new List<Attack>();
+    BoxCollider2D playerCollider;
 
     [Header("Movement")]
     public float movementSpeed = 5f;
@@ -31,6 +32,8 @@ public class PlayerMovement : MonoBehaviour
     public Transform groundCheckPos;
     public Vector2 groundCheckSize = new Vector2(0.5f, 0.05f);
     public LayerMask groundLayer;
+    bool isGrounded;
+    bool isOnPlatform;
 
     [Header("Gravity")]
     public float baseGravity = 2f;
@@ -41,6 +44,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         trailRenderer = GetComponent<TrailRenderer>();
+        playerCollider = GetComponent<BoxCollider2D>();
 
         int playerLayer = LayerMask.NameToLayer("Player");
         Physics2D.IgnoreLayerCollision(playerLayer, playerLayer, true);
@@ -119,6 +123,39 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Platform"))
+        {
+            isOnPlatform = true;
+
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Platform"))
+        {
+            isOnPlatform = false;
+
+        }
+    }
+
+    public void Drop(InputAction.CallbackContext context)
+    {
+        if (context.performed && isGrounded && isOnPlatform && playerCollider.enabled)
+        {
+            StartCoroutine(DisablePlayerCollider(0.25f));
+        }
+    }
+
+    private IEnumerator DisablePlayerCollider(float disableTime)
+    {
+        playerCollider.enabled = false;
+        yield return new WaitForSeconds(disableTime);
+        playerCollider.enabled = true;
+    }
+
     private IEnumerator DashCoroutine()
     {
         canDash = false;
@@ -154,9 +191,13 @@ public class PlayerMovement : MonoBehaviour
     {
         if(Physics2D.OverlapBox(groundCheckPos.position, groundCheckSize, 0, groundLayer))
         {
+            isGrounded = true;
             jumpsRemaining = maxJumps;
         }
-
+        else
+        {
+            isGrounded = false;
+        }
     }
 
     private void Flip()
