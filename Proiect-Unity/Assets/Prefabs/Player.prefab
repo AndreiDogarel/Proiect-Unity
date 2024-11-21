@@ -137,7 +137,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 6200000, guid: d6d7872c97178fc4eaead58dfc957054, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -235,7 +235,7 @@ MonoBehaviour:
   healthProcent: 100
   livesLeft: 0
   ableToMove: 0
-  rb: {fileID: 0}
+  rb: {fileID: 6963444264892838617}
 --- !u!96 &1267656475905619908
 TrailRenderer:
   serializedVersion: 3

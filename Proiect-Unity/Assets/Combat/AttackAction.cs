@@ -13,9 +13,9 @@ public class AttackAction : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        attacks.Add(new Attack(10, 10, 0, 10)); //damage, range, cooldown, knockback
+        attacks.Add(new Attack(10, 10, 0, 25)); //damage, range, cooldown, knockback
                                                 //cooldown won't make the cut in the actual form
-        isFacingRight = true;
+        isFacingRight = false;
     }
 
     // Update is called once per frame
@@ -23,7 +23,7 @@ public class AttackAction : MonoBehaviour
     {
         position = transform.position;
 
-        float moveInput = Input.GetAxisRaw("Horizontal");
+        /*float moveInput = Input.GetAxisRaw("Horizontal");
         if(moveInput > 0)
         {
             isFacingRight = true;
@@ -31,9 +31,9 @@ public class AttackAction : MonoBehaviour
         else if(moveInput < 0)
         {
             isFacingRight = false;
-        }
+        }*/
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.V))
         {
             Vector2 attackDirection = GetDirection();
             Debug.Log(attackDirection);
