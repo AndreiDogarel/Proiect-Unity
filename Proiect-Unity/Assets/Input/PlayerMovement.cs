@@ -7,7 +7,8 @@ using UnityEngine.UIElements;
 public class PlayerMovement : MonoBehaviour
 {
     public Rigidbody2D rb;
-    bool isFacingRight = true;
+    bool isFacingRight = true, isOnCooldown = false;
+    float cooldown = 0.0f;
     List<Attack> attacks = new List<Attack>();
     BoxCollider2D playerCollider;
 
@@ -50,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
         Physics2D.IgnoreLayerCollision(playerLayer, playerLayer, true);
 
         // attacks values to be changed
-        attacks.Add(new Attack(10, 10, 0, 10)); // meele attack
+        attacks.Add(new Attack(10, 10, 0, 30)); // meele attack
         attacks.Add(new Attack(5, 15, 0, 10)); // range attack
     }
 
@@ -61,7 +62,12 @@ public class PlayerMovement : MonoBehaviour
         {
             return;
         }
-        rb.velocity = new Vector2(horizontalMovement * movementSpeed, rb.velocity.y);
+
+        if (!isOnCooldown)
+        {
+            rb.velocity = new Vector2(horizontalMovement * movementSpeed, rb.velocity.y);
+        }
+
         GroundCheck();
         Gravity();
 
@@ -145,7 +151,7 @@ public class PlayerMovement : MonoBehaviour
     // Dashing methods
     public void Dash(InputAction.CallbackContext context)
     {
-        if (context.performed && canDash)
+        if (context.performed && canDash && !isOnCooldown)
         {
             StartCoroutine(DashCoroutine());
         }
@@ -215,21 +221,45 @@ public class PlayerMovement : MonoBehaviour
     // Attacking methods
     public void Attack(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && !isOnCooldown)
         {
             Vector2 attackDirection = isFacingRight ? Vector2.right : Vector2.left;
             Debug.Log(attackDirection);
             attacks[0].PerformAttack(transform.position, attackDirection);
+
+            isOnCooldown = true;
+            cooldown = 0.1f;
+
+            Invoke("ResetCooldown", cooldown);
         }
     }
 
     public void RangeAttack(InputAction.CallbackContext context)
     {
-        if (!context.performed)
+        if (!context.performed && !isOnCooldown)
         {
             Vector2 attackDirection = isFacingRight ? Vector2.right : Vector2.left;
             Debug.Log(attackDirection);
             attacks[1].PerformAttack(transform.position, attackDirection);
+
+            isOnCooldown = true;
+            cooldown = 0.3f;
+
+            Invoke("ResetCooldown", cooldown);
         }
+    }
+
+    public void SetCooldown(float _cooldown)
+    {
+        isOnCooldown = true;
+        cooldown = _cooldown;
+
+        Invoke("ResetCooldown", cooldown);
+    }
+
+    void ResetCooldown()
+    {
+        isOnCooldown = false;
+        cooldown = 0.0f;
     }
 }
