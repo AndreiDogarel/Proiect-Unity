@@ -41,6 +41,11 @@ public class PlayerInputHandler : MonoBehaviour
         controller.Attack(context);
     }
 
+    public void RangeAttack(InputAction.CallbackContext context)
+    {
+        controller.RangeAttack(context);
+    }
+
     public void Drop(InputAction.CallbackContext context)
     {
         controller.Drop(context);
