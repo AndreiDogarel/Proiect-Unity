@@ -44,7 +44,6 @@ GameObject:
   - component: {fileID: 6963444264892838617}
   - component: {fileID: 1441946555109200764}
   - component: {fileID: 8234783357961865918}
-  - component: {fileID: 1392155179970004832}
   - component: {fileID: -6221506275038129473}
   - component: {fileID: 1267656475905619908}
   m_Layer: 6
@@ -138,7 +137,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 6200000, guid: d6d7872c97178fc4eaead58dfc957054, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -221,21 +220,6 @@ MonoBehaviour:
   baseGravity: 2
   maxFallSpeed: 10
   fallSpeedMultiplier: 2
---- !u!114 &1392155179970004832
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7241440797586071168}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6527bd33111fced4da5a79ced426072c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  position: {x: 0, y: 0}
-  direction: {x: 0, y: 0}
-  attacks: []
 --- !u!114 &-6221506275038129473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -251,7 +235,7 @@ MonoBehaviour:
   healthProcent: 100
   livesLeft: 0
   ableToMove: 0
-  rb: {fileID: 0}
+  rb: {fileID: 6963444264892838617}
 --- !u!96 &1267656475905619908
 TrailRenderer:
   serializedVersion: 3
