@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Attack : MonoBehaviour
+public class Attack 
 {
     //Standard class for all the attacks we will think about
 
@@ -33,8 +33,6 @@ public class Attack : MonoBehaviour
             Vector2 offsetPostion = playerPosition + direction;
 
             RaycastHit2D hit = Physics2D.Raycast(offsetPostion, direction, range);
-
-            //Debug.Log(playerPosition + " " +  direction + " " + range);
             
             if (hit.collider != null)
             {
@@ -44,15 +42,6 @@ public class Attack : MonoBehaviour
                     hit.collider.GetComponent<PlayerStats>().TakeDamage(damage, baseKnockback, direction);
                 }
             }
-
-            //isOnCooldown=true;
-
-            //Invoke("AttackCooldown", cooldown);
         }
-    }
-
-    void AttackCooldown()
-    {
-        isOnCooldown = false;
     }
 }

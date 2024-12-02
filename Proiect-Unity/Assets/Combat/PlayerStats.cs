@@ -22,13 +22,17 @@ public class PlayerStats : MonoBehaviour
 
     public void TakeDamage(float attackDamage, float attackKnockback, Vector2 attackDirection)
     {
+        float strength = attackKnockback * (healthProcent / 100);
         healthProcent += attackDamage;
 
-        Knockback(attackDirection, attackKnockback * (healthProcent / 100));
+        Knockback(attackDirection, strength);
+
+        rb.gameObject.GetComponent<PlayerMovement>().SetCooldown(0.5f);
     }
 
     void Knockback(Vector2 knockbackDirection, float knockbackStrength)
     {
+        rb.velocity = Vector2.zero;
         rb.AddForce(knockbackDirection.normalized * knockbackStrength, ForceMode2D.Impulse);
     }
 
