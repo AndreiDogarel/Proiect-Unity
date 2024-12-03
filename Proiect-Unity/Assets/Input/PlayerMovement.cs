@@ -249,7 +249,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void RangeAttack(InputAction.CallbackContext context)
     {
-        if (!context.performed && !isOnCooldown)
+        if (context.performed && !isOnCooldown)
         {
             Vector2 attackDirection = isFacingRight ? Vector2.right : Vector2.left;
             Debug.Log(attackDirection);
