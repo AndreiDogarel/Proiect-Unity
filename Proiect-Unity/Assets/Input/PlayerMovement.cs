@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 public class PlayerMovement : MonoBehaviour
 {
     public Rigidbody2D rb;
+    public Animator animator;
     bool isFacingRight = true, isOnCooldown = false;
     float cooldown = 0.0f;
     List<Attack> attacks = new List<Attack>();
@@ -88,10 +89,12 @@ public class PlayerMovement : MonoBehaviour
         {
             isGrounded = true;
             jumpsRemaining = maxJumps;
+            animator.SetBool("Jumping", false);
         }
         else
         {
             isGrounded = false;
+            animator.SetBool("Jumping", true);
         }
     }
 
@@ -123,6 +126,7 @@ public class PlayerMovement : MonoBehaviour
         if(rb.gameObject.GetComponent<PlayerStats>().ableToMove == true)
         {
             horizontalMovement = context.ReadValue<Vector2>().x;
+            animator.SetBool("Walking", horizontalMovement == 0 ? false : true);
         }
     }
 
@@ -154,6 +158,11 @@ public class PlayerMovement : MonoBehaviour
         if (context.performed && canDash && !isOnCooldown)
         {
             StartCoroutine(DashCoroutine());
+            animator.SetBool("Dash", true);
+        }
+        else
+        {
+            animator.SetBool("Dash", false);
         }
     }
 
@@ -161,12 +170,11 @@ public class PlayerMovement : MonoBehaviour
     {
         canDash = false;
         isDashing = true;
-
+        
         trailRenderer.emitting = true;
         float dashDirection = isFacingRight ? 1f : -1f;
 
         rb.velocity = new Vector2(dashDirection * dashSpeed, rb.velocity.y);
-
         yield return new WaitForSeconds(dashDuration);
 
         rb.velocity = new Vector2(0f, rb.velocity.y); //reset horizontal velocity
@@ -226,26 +234,36 @@ public class PlayerMovement : MonoBehaviour
             Vector2 attackDirection = isFacingRight ? Vector2.right : Vector2.left;
             Debug.Log(attackDirection);
             attacks[0].PerformAttack(transform.position, attackDirection);
+            animator.SetBool("Short", true);
 
             isOnCooldown = true;
             cooldown = 0.1f;
 
             Invoke("ResetCooldown", cooldown);
         }
+        else
+        {
+            animator.SetBool("Short", false);
+        }
     }
 
     public void RangeAttack(InputAction.CallbackContext context)
     {
-        if (!context.performed && !isOnCooldown)
+        if (context.performed && !isOnCooldown)
         {
             Vector2 attackDirection = isFacingRight ? Vector2.right : Vector2.left;
             Debug.Log(attackDirection);
             attacks[1].PerformAttack(transform.position, attackDirection);
+            animator.SetBool("Long", true);
 
             isOnCooldown = true;
             cooldown = 0.3f;
 
             Invoke("ResetCooldown", cooldown);
+        }
+        else
+        {
+            animator.SetBool("Long", false);
         }
     }
 
