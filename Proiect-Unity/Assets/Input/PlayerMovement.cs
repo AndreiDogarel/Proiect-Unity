@@ -215,7 +215,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (context.performed && isGrounded && isOnPlatform && playerCollider.enabled)
         {
-            StartCoroutine(DisablePlayerCollider(0.25f));
+            StartCoroutine(DisablePlayerCollider(0.5f));
         }
     }
 
