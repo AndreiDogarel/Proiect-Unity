@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public Rigidbody2D rb;
     public Animator animator;
-    bool isFacingRight = true, isOnCooldown = false;
+    public bool isFacingRight = true, isOnCooldown = false;
     float cooldown = 0.0f;
     List<Attack> attacks = new List<Attack>();
     BoxCollider2D playerCollider;
@@ -42,6 +42,10 @@ public class PlayerMovement : MonoBehaviour
     public float maxFallSpeed = 18f;
     public float fallSpeedMultiplier = 2f;
 
+    [Header("Range Attack")]
+    public Transform firePoint;
+    public GameObject bulletPrefab;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -52,8 +56,8 @@ public class PlayerMovement : MonoBehaviour
         Physics2D.IgnoreLayerCollision(playerLayer, playerLayer, true);
 
         // attacks values to be changed
-        attacks.Add(new Attack(10, 10, 0, 30)); // meele attack
-        attacks.Add(new Attack(5, 15, 0, 10)); // range attack
+        attacks.Add(new Attack(10, 3, 0, 30)); // meele attack
+        //attacks.Add(new Attack(5, 15, 0, 10)); // range attack
     }
 
     // Update is called once per frame
@@ -64,10 +68,8 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        if (!isOnCooldown)
-        {
-            rb.velocity = new Vector2(horizontalMovement * movementSpeed, rb.velocity.y);
-        }
+        rb.velocity = new Vector2(horizontalMovement * movementSpeed, rb.velocity.y);
+        
 
         GroundCheck();
         Gravity();
@@ -101,9 +103,8 @@ public class PlayerMovement : MonoBehaviour
     private void Flip()
     {
         isFacingRight = !isFacingRight;
-        Vector3 scale = transform.localScale;
-        scale.x *= -1f;
-        transform.localScale = scale;
+
+        transform.Rotate(0f, 180f, 0f);
     }
 
     // Gravity methods
@@ -125,7 +126,19 @@ public class PlayerMovement : MonoBehaviour
     {
         if(rb.gameObject.GetComponent<PlayerStats>().ableToMove == true)
         {
-            horizontalMovement = context.ReadValue<Vector2>().x;
+            float inputMagnitude = context.ReadValue<Vector2>().x;
+            if (inputMagnitude < 0f)
+            {
+                horizontalMovement = -1f;
+            }
+            else if (inputMagnitude > 0f)
+            {
+                horizontalMovement = 1f;
+            }
+            else
+            {
+                horizontalMovement = 0f;
+            }
             animator.SetBool("Walking", horizontalMovement == 0 ? false : true);
         }
     }
@@ -251,13 +264,14 @@ public class PlayerMovement : MonoBehaviour
     {
         if (context.performed && !isOnCooldown)
         {
-            Vector2 attackDirection = isFacingRight ? Vector2.right : Vector2.left;
-            Debug.Log(attackDirection);
-            attacks[1].PerformAttack(transform.position, attackDirection);
+            //Vector2 attackDirection = isFacingRight ? Vector2.right : Vector2.left;
+            //Debug.Log(attackDirection);
+            //attacks[1].PerformAttack(transform.position, attackDirection);
+            Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
             animator.SetBool("Long", true);
 
             isOnCooldown = true;
-            cooldown = 0.3f;
+            cooldown = 0.5f;
 
             Invoke("ResetCooldown", cooldown);
         }
