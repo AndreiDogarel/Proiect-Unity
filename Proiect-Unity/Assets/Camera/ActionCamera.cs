@@ -37,7 +37,7 @@ public class ActionCamera : MonoBehaviour
         if (targets.Count == 0)
             return;
 
-        //Move();
+        Move();
         Zoom();
     }
 
