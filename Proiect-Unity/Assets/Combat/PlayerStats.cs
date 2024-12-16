@@ -24,6 +24,7 @@ public class PlayerStats : MonoBehaviour
     {
         float strength = attackKnockback * (healthProcent / 100);
         healthProcent += attackDamage;
+        Debug.Log(healthProcent);
 
         Knockback(attackDirection, strength);
 
