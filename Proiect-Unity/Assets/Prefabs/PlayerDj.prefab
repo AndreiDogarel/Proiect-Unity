@@ -48,7 +48,7 @@ GameObject:
   - component: {fileID: 1267656475905619908}
   - component: {fileID: 1841239575870872965}
   m_Layer: 6
-  m_Name: Player
+  m_Name: PlayerDj
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -209,6 +209,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 6963444264892838617}
   animator: {fileID: 1841239575870872965}
+  isFacingRight: 1
+  isOnCooldown: 0
   movementSpeed: 7
   jumpPower: 11
   maxJumps: 2

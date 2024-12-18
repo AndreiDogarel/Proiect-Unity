@@ -6,16 +6,14 @@ using UnityEngine.InputSystem;
 
 public class PlayerInputHandler : MonoBehaviour
 {
-    public GameObject player;
+    public List<GameObject> playerPrefabs;
     public PlayerMovement controller;
-
-    Vector3 startPos = new Vector3(0, 0, 0);
 
     private void Awake()
     {
-        if (player != null) 
+        if (playerPrefabs[GameManager.instance.currentPlayerCount - 1] != null)
         {
-            controller = GameObject.Instantiate(player, GameManager.instance.spawnPoints[0].transform.position, transform.rotation).GetComponent<PlayerMovement>();
+            controller = GameObject.Instantiate(playerPrefabs[GameManager.instance.currentPlayerCount - 1], GameManager.instance.spawnPoints[0].transform.position, transform.rotation).GetComponent<PlayerMovement>();
             transform.parent = controller.transform;
             transform.position = controller.transform.position;
         }

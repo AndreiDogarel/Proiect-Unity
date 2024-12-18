@@ -92,13 +92,11 @@ public class PlayerMovement : MonoBehaviour
             isGrounded = true;
             jumpsRemaining = maxJumps;
             animator.SetBool("Jumping", false);
-            animator.SetBool("Jake_jumping", false);
         }
         else
         {
             isGrounded = false;
             animator.SetBool("Jumping", true);
-            animator.SetBool("Jake_jumping", true);
         }
     }
 
@@ -142,7 +140,6 @@ public class PlayerMovement : MonoBehaviour
                 horizontalMovement = 0f;
             }
             animator.SetBool("Walking", horizontalMovement == 0 ? false : true);
-            animator.SetBool("Jake_walking", horizontalMovement == 0 ? false : true);
         }
     }
 
@@ -175,12 +172,10 @@ public class PlayerMovement : MonoBehaviour
         {
             StartCoroutine(DashCoroutine());
             animator.SetBool("Dash", true);
-            animator.SetBool("Jake_dash", true);
         }
         else
         {
             animator.SetBool("Dash", false);
-            animator.SetBool("Jake_dash", false);
         }
     }
 
@@ -253,7 +248,6 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log(attackDirection);
             attacks[0].PerformAttack(transform.position, attackDirection);
             animator.SetBool("Short", true);
-            animator.SetBool("Jake_short", true);
 
             isOnCooldown = true;
             cooldown = 0.1f;
@@ -263,7 +257,6 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             animator.SetBool("Short", false);
-            animator.SetBool("Jake_short", false);
         }
     }
 
@@ -276,7 +269,6 @@ public class PlayerMovement : MonoBehaviour
             //attacks[1].PerformAttack(transform.position, attackDirection);
             Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
             animator.SetBool("Long", true);
-            animator.SetBool("Jake_long", true);
 
             isOnCooldown = true;
             cooldown = 0.5f;
@@ -286,7 +278,6 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             animator.SetBool("Long", false);
-            animator.SetBool("Jake_long", false);
         }
     }
 
