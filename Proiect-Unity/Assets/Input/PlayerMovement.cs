@@ -68,8 +68,11 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        rb.velocity = new Vector2(horizontalMovement * movementSpeed, rb.velocity.y);
-        
+        if (!isOnCooldown)
+        {
+            rb.velocity = new Vector2(horizontalMovement * movementSpeed, rb.velocity.y);
+        }
+
 
         GroundCheck();
         Gravity();
