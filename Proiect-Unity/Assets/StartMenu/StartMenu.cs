@@ -9,6 +9,7 @@ public class StartMenu : MonoBehaviour
     public Image V1; 
     public Image V2;
     public Image V3;
+    public Image V4;
 
     private void Start()
     {
@@ -49,6 +50,10 @@ public class StartMenu : MonoBehaviour
         {
             return 3;
         }
+        else if(V4.gameObject.activeSelf)
+        {
+            return 4;
+        }    
 
         return 1;
     }

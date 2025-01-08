@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -12,6 +13,9 @@ public class PlayerMovement : MonoBehaviour
     float cooldown = 0.0f;
     List<Attack> attacks = new List<Attack>();
     BoxCollider2D playerCollider;
+
+    private AudioEffects audioEffects;
+    private GameManager gameManager;
 
     [Header("Movement")]
     public float movementSpeed = 5f;
@@ -58,6 +62,9 @@ public class PlayerMovement : MonoBehaviour
         // attacks values to be changed
         attacks.Add(new Attack(10, 3, 0, 30)); // meele attack
         //attacks.Add(new Attack(5, 15, 0, 10)); // range attack
+
+        audioEffects = FindObjectOfType<AudioEffects>();
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     // Update is called once per frame
@@ -245,8 +252,10 @@ public class PlayerMovement : MonoBehaviour
     // Attacking methods
     public void Attack(InputAction.CallbackContext context)
     {
+        
         if (context.performed && !isOnCooldown)
         {
+            audioEffects.playMeleeAttackSound();
             Vector2 attackDirection = isFacingRight ? Vector2.right : Vector2.left;
             Debug.Log(attackDirection);
             attacks[0].PerformAttack(transform.position, attackDirection);
@@ -261,12 +270,50 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetBool("Short", false);
         }
+        
     }
 
     public void RangeAttack(InputAction.CallbackContext context)
     {
+      
+
         if (context.performed && !isOnCooldown)
         {
+            int playerIndex = -1;
+            for (int i = 0; i < gameManager.playerList.Count; i++)
+            {
+                if (gameManager.playerList[i].devices.Contains(context.control.device))
+                {
+                    playerIndex = i;
+                    break;
+                }
+            }
+
+
+            if (playerIndex != -1)
+            {
+                Debug.Log("Player " + playerIndex + " performed a ranged attack!");
+
+
+                switch (playerIndex)
+                {
+                    case 0:
+                        audioEffects.PlayAttackRange1Sound();
+                        break;
+                    case 1:
+
+                        audioEffects.PlayAttackRange2Sound();
+                        break;
+                    case 2:
+
+                        audioEffects.PlayAttackRange3Sound();
+                        break;
+                    default:
+
+                        audioEffects.PlayAttackRange4Sound();
+                        break;
+                }
+            }
             //Vector2 attackDirection = isFacingRight ? Vector2.right : Vector2.left;
             //Debug.Log(attackDirection);
             //attacks[1].PerformAttack(transform.position, attackDirection);
