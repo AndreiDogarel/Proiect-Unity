@@ -10,6 +10,8 @@ public class AudioEffects : MonoBehaviour
     public AudioSource rangeAttack3;
     public AudioSource rangeAttack4;
 
+    public AudioSource deathSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,4 +40,10 @@ public class AudioEffects : MonoBehaviour
 
     public void PlayAttackRange4Sound() {
         rangeAttack4.Play(); }
+
+    public void PlayDeathSound()
+    {
+
+    deathSound.Play(); }
 }
+
