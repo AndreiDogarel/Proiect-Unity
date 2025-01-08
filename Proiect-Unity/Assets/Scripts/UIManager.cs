@@ -91,8 +91,9 @@ public class UIManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-public void MainMenu()
+    public void MainMenu()
     {
         SceneManager.LoadScene(1);
     }
+
 }
