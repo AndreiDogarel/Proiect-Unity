@@ -12,12 +12,15 @@ public class PlayerStats : MonoBehaviour
 
     public Rigidbody2D rb;
 
+    private AudioEffects audioEffects;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         healthProcent = 0f;
         livesLeft = 3;
         ableToMove = true;
+        audioEffects = FindObjectOfType<AudioEffects>();
     }
 
     public void TakeDamage(float attackDamage, float attackKnockback, Vector2 attackDirection)
@@ -39,6 +42,7 @@ public class PlayerStats : MonoBehaviour
 
     public void OutOfBorder()
     {
+        audioEffects.PlayDeathSound();
         livesLeft--;
 
         if (livesLeft == 0)
