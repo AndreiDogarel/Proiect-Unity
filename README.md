@@ -17,8 +17,8 @@ Proiectul este un joc 2D Platform Fighter co-op, în care până la 4 jucători 
 ## Instructiuni pentru review
 - Puteți utiliza atât tastatura, cât și un gamepad
   - Pentru movement: A și D, săgeată stânga și săgeată dreapta / Left Stick
-  - Pentru jump / double jump: W, Space, săgeată sus / Button South
-  - Pentru atac meele: E / Button East
-  - Pentru atac range: R / Button North
-  - Pentru dash: Q / RightShoulder (RB - Xbox sau R1 - PS)
-  - Pentru a da drop prin platforma: S, săgeată jos / Right Stick Down
+  - Pentru jump / double jump: W, Space, săgeată sus / Button South (A - Xbox sau X - PS)
+  - Pentru atac meele: E / Button West (X - Xbox sau ◻ - PS5)
+  - Pentru atac range: R / Button East (B - Xbox sau 〇 - PS5)
+  - Pentru dash: Q / LeftShoulder (LB - Xbox sau L1 - PS)
+  - Pentru a da drop prin platforma: S, săgeată jos / RightShoulder (RB - Xbox sau R1 - PS)
