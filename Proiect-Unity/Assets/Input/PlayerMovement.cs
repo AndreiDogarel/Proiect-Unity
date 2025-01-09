@@ -298,6 +298,7 @@ public class PlayerMovement : MonoBehaviour
                 switch (playerIndex)
                 {
                     case 0:
+                        
                         audioEffects.PlayAttackRange1Sound();
                         break;
                     case 1:

@@ -214,4 +214,6 @@ MonoBehaviour:
   playerPrefabs:
   - {fileID: 7241440797586071168, guid: 19c7b9b8b96330946b77004038d2269c, type: 3}
   - {fileID: 7241440797586071168, guid: 195756f9f95ed15409dd60528d860e70, type: 3}
+  - {fileID: 7241440797586071168, guid: d416084dc0cc4ea43b10bcc985b9b1a5, type: 3}
+  - {fileID: 7241440797586071168, guid: 6c08abf269140c248aecf7c14820739d, type: 3}
   controller: {fileID: 0}
