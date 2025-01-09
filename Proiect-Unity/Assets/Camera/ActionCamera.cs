@@ -32,6 +32,24 @@ public class ActionCamera : MonoBehaviour
         cam = GetComponent<Camera>();
     }
 
+    void Update()
+    {
+        List<PlayerInput> playerList = GameManager.instance.playerList;
+        if (playerList.Count > 2)
+        {
+            for (int i = 0; i < playerList.Count; i++)
+            {
+                if (playerList[i].GetComponent<PlayerInputHandler>().controller.GetComponent<PlayerStats>().livesLeft == 0)
+                {
+                    RemovePlayer(playerList[i]);
+                } else
+                {
+                    AddPlayer(playerList[i]);
+                }
+            }
+        }
+    }
+
     void LateUpdate()
     {
         if (targets.Count == 0)
