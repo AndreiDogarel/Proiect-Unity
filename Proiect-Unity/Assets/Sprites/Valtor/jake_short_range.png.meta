@@ -134,9 +134,9 @@ TextureImporter:
       name: jake_short_range_1
       rect:
         serializedVersion: 2
-        x: 1759
+        x: 1772
         y: 575
-        width: 804
+        width: 845
         height: 963
       alignment: 0
       pivot: {x: 0.5, y: 0.5}

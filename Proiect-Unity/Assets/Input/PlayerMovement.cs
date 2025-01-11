@@ -60,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
         Physics2D.IgnoreLayerCollision(playerLayer, playerLayer, true);
 
         // attacks values to be changed
-        attacks.Add(new Attack(10, 3, 0, 30)); // meele attack
+        attacks.Add(new Attack(10, 1, 0, 10)); // meele attack
         //attacks.Add(new Attack(5, 15, 0, 10)); // range attack
 
         audioEffects = FindObjectOfType<AudioEffects>();

@@ -37,6 +37,7 @@ public class PlayerStats : MonoBehaviour
         Knockback(attackDirection, strength);
 
         rb.gameObject.GetComponent<PlayerMovement>().SetCooldown(0.5f);
+        rb.gameObject.GetComponent<PlayerMovement>().animator.SetTrigger("Damage");
     }
 
     void Knockback(Vector2 knockbackDirection, float knockbackStrength)

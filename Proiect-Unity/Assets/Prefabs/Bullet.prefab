@@ -29,8 +29,8 @@ Transform:
   m_GameObject: {fileID: 667417751644955606}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.4416, y: -1.6844, z: -18.570847}
-  m_LocalScale: {x: 0.0140609685, y: 0.01650128, z: 1}
+  m_LocalPosition: {x: 3.46478, y: -1.69599, z: -18.570847}
+  m_LocalScale: {x: 0.020566838, y: 0.023774384, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -162,4 +162,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 20
+  damage: 5
+  knockback: 10
   rb: {fileID: 7621813901791382410}
