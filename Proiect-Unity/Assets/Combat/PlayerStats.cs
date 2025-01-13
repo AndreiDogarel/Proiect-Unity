@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,22 +13,31 @@ public class PlayerStats : MonoBehaviour
 
     public Rigidbody2D rb;
 
+    private AudioEffects audioEffects;
+
+    private Vector2 deathBox, respawnPoint;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         healthProcent = 0f;
         livesLeft = 3;
         ableToMove = true;
+        audioEffects = FindObjectOfType<AudioEffects>();
+        deathBox = new Vector2(115.1748f, -6.330169f);
+        respawnPoint = new Vector2(1, 0);
     }
 
     public void TakeDamage(float attackDamage, float attackKnockback, Vector2 attackDirection)
     {
         float strength = attackKnockback * (healthProcent / 100);
         healthProcent += attackDamage;
+        Debug.Log(healthProcent);
 
         Knockback(attackDirection, strength);
 
         rb.gameObject.GetComponent<PlayerMovement>().SetCooldown(0.5f);
+        rb.gameObject.GetComponent<PlayerMovement>().animator.SetTrigger("Damage");
     }
 
     void Knockback(Vector2 knockbackDirection, float knockbackStrength)
@@ -38,7 +48,9 @@ public class PlayerStats : MonoBehaviour
 
     public void OutOfBorder()
     {
+        audioEffects.PlayDeathSound();
         livesLeft--;
+        ableToMove = false;
 
         if (livesLeft == 0)
         {
@@ -57,14 +69,15 @@ public class PlayerStats : MonoBehaviour
     void EliminatePlayer()
     {
         ableToMove = false;
-        rb.MovePosition(new Vector2(49.54f, -6.22f));
+        rb.position = deathBox;
     }
 
     void Respawn()
     {
         //Reset the oX axis momentum
         rb.velocity = Vector2.zero;
-        
-        rb.MovePosition(new Vector2(1, 0));
+        ableToMove = true;
+
+        rb.MovePosition(respawnPoint);
     }
 }

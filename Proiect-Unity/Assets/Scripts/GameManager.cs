@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     public event System.Action<PlayerInput> PlayerLeft;
 
     private int maxPlayerCount;
-    private int currentPlayerCount = 0;
+    public int currentPlayerCount = 0;
 
     // Reference to the ActionCamera script
     private ActionCamera actionCamera;

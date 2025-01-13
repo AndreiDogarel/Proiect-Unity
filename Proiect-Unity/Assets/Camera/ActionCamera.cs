@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Camera))]
@@ -19,10 +18,10 @@ public class ActionCamera : MonoBehaviour
     public float zoomLimiter = 50f;
 
     [Header("Limits")]
-    public float minX = -27f;
-    public float minY = -6f;
-    public float maxX = 28f;
-    public float maxY = 9f;
+    float minX = -15f;
+    float minY = 0f;
+    float maxX = 15f;
+    float maxY = 9f;
 
     private Vector3 velocity;
     private Camera cam;
@@ -32,12 +31,30 @@ public class ActionCamera : MonoBehaviour
         cam = GetComponent<Camera>();
     }
 
+    void Update()
+    {
+        List<PlayerInput> playerList = GameManager.instance.playerList;
+        if (playerList.Count > 2)
+        {
+            for (int i = 0; i < playerList.Count; i++)
+            {
+                if (playerList[i].GetComponent<PlayerInputHandler>().controller.GetComponent<PlayerStats>().livesLeft == 0)
+                {
+                    RemovePlayer(playerList[i]);
+                } else
+                {
+                    AddPlayer(playerList[i]);
+                }
+            }
+        }
+    }
+
     void LateUpdate()
     {
         if (targets.Count == 0)
             return;
 
-        //Move();
+        Move();
         Zoom();
     }
 
