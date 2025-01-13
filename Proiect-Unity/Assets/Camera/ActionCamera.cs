@@ -19,9 +19,9 @@ public class ActionCamera : MonoBehaviour
     public float zoomLimiter = 50f;
 
     [Header("Limits")]
-    float minX = -20f;
+    float minX = -15f;
     float minY = 0f;
-    float maxX = 20f;
+    float maxX = 15f;
     float maxY = 9f;
 
     private Vector3 velocity;
